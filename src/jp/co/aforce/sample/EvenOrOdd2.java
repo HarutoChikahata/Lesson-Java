@@ -1,5 +1,5 @@
 package jp.co.aforce.sample;
-
+	//問4
 public class EvenOrOdd2 {
 	public static void main(String args[]) {
 		// 1.変数numに4.5を代入
