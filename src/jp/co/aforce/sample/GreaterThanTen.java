@@ -1,5 +1,5 @@
 package jp.co.aforce.sample;
-
+	//問2
 public class GreaterThanTen {
 	public static void main(String args[]) {
 	//1．変数numに整数12を代入
