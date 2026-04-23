@@ -11,6 +11,8 @@ public class LinkedList65 {
 		stations.add("Funabashi");
 		stations.add("Ichikawa");
 		
+		System.out.println("最初：" + stations.getFirst());
+		System.out.println("最後" + stations.getLast());
 		
 		
 	}
