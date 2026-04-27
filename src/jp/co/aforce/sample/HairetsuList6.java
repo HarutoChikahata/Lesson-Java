@@ -12,13 +12,7 @@ public class HairetsuList6 {
 		
 		System.out.println("リスト" + list);
 		
-    	List<String>listP = new ArrayList<>();
-		listP.add("Asakusa");
-		listP.add("Oshiage");
-		listP.add("Shimbashi");
-		
-		String[]  = (new String[0]);
-		
+    	
 	}
 	
 }

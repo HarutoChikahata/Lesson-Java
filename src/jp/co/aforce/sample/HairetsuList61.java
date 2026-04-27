@@ -10,7 +10,7 @@ listP.add("Asakusa");
 listP.add("Oshiage");
 listP.add("Shimbashi");
 
-String[] array = (new String[0]);
+String[] array = listP.toArray(new String[0]);
 for (String s : array) {
 	System.out.println("配列：" + s);
 	}

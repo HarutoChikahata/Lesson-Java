@@ -150,11 +150,14 @@
 	    }
 	
 	    public static void main(String[] args) {
-	        // ここにインスタンス化コードを記述
-	    }
-	}
-	
-	
+       		Cat1 myCat = new Cat1();
+       		//インスタンス化
+       		myCat.name = "ムーン";
+      	 	//名前を設定
+       		myCat.meow();
+       		//メソッド呼び出し
+    }
+}
 問3.	複数の「Car」インスタンスを生成し、それぞれの車種（model）と速度（speed）を表示してください。
 	
 	
