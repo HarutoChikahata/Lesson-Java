@@ -1,0 +1,442 @@
+第10章：クラスの応用	
+コンストラクター	
+問1.	Personクラスを作成し、名前と年齢を引数に取るコンストラクターを定義してください。
+	コンストラクターを使ってオブジェクトを生成し、フィールドを表示するプログラムを作成してください。
+	
+	package jp.co.aforce.sample;
+	
+	class Persona {
+		String name;
+		int age;
+
+		Persona(String name, int age) {
+			this.name = name;
+			this.age = age;
+}
+
+		void display() {
+			System.out.println("名前:" + name + " 年齢:" + age);
+	}
+}
+
+	public class Personal{
+		public static void main(String[] args) {
+			Persona p = new Persona("小田和正",65);
+			p.display();
+	}
+}
+
+問2.	Carクラスを作成し、デフォルトコンストラクターと引数付きコンストラクターを定義してください。
+	デフォルトコンストラクターでは、フィールドにデフォルト値を設定してください。
+	
+	package jp.co.aforce.sample;
+
+	class Car1 {
+		String model;
+		int speed;
+	
+		//デフォルトコンストラクター、通称デフォ婚
+		Car1(){
+			this.model = "未設定";
+			this.speed = 0;
+}
+	
+		//引数付きコンストラクター、通称ヒキコン
+		Car1(String model,int speed){
+			this.model = model;
+			this.speed = speed;
+	}
+}
+
+	public class CarCar{
+		public static void main(String[] args) {
+			Car1 A = new Car1("トゥクトゥク", 36);
+			System.out.println("モデル：" + A.model + "/最高時速：" + A.speed + "km/h");
+	}
+}
+
+問3.	Bookクラスを作成し、タイトル、著者、価格を引数に取るコンストラクターと、
+	タイトルと著者のみを引数に取るコンストラクターを定義してください。
+	価格が指定されない場合はデフォルト値を設定してください。
+	※ コンストラクター内で他のコンストラクターを呼び出してもよい。（this(...) を使ってもOK）
+	
+	package jp.co.aforce.sample;
+
+	class Book34 {
+		String title;
+		String author;
+		int price;
+
+		//タイ著価をヒキスウにトル、コン。
+		Book34(String title, String author, int price) {
+			this.title = title;
+			this.author = author;
+			this.price = price;
+}
+
+		//タイ著のみをトル、コン。
+		Book34(String title, String author) {
+			this(title, author, 500);
+	}
+
+		void showInfo() {
+			System.out.println("タイトル：" + title + "/著者：" + author + "/価格" + price + "円");
+
+	}
+
+}
+
+	public class Boook {
+		public static void main(String[] args) {
+			Book34 b1 = new Book34("ガダラの豚", "中島らも", 580);
+			Book34 b2 = new Book34("砂漠", "伊坂幸太郎");
+
+			b1.showInfo();
+			b2.showInfo();
+	}
+}
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────
+第10章：クラスの応用	
+オーバーライド	
+問1.	AnimalクラスにmakeSoundメソッドを定義し、DogクラスとCatクラスでこのメソッドをオーバーライドしてください。
+	それぞれのクラスのインスタンスを作成し、makeSoundメソッドを呼び出して音を表示するプログラムを作成してください。
+	
+	package jp.co.aforce.sample;
+
+	class Banimal{
+		void makeSound() {
+			System.out.println("任意の音");
+	}
+}
+
+class Doggy extends Banimal{
+	@Override
+	void makeSound() {
+		System.out.println("ギン！ギン！");
+	}
+}
+
+	class Catty extends Banimal{
+		@Override
+		void makeSound() {
+			System.out.println("キャイーーン！");
+	}
+}
+	public class Animal96 {
+		public static void main (String[] args) {
+			Banimal myDoggy = new Doggy();
+			Banimal myCatty = new Catty();
+		
+			myDoggy.makeSound();
+			myCatty.makeSound();
+	}
+}
+
+問2.	PersonクラスにtoStringメソッドをオーバーライドして、名前と年齢を表示するようにしてください。
+	Personクラスのインスタンスを作成し、toStringメソッドを呼び出して情報を表示するプログラムを作成してください。
+	
+	package jp.co.aforce.sample;
+
+	class PersonX {
+		String name;
+		int age;
+
+		PersonX(String name, int age) {
+			this.name = name;
+			this.age = age;
+}
+
+		@Override
+		public String toString() {
+			return "名前：" + name + " /年齢" + age;
+	}
+
+}
+
+	public class Person11 {
+		public static void main(String[] args) {
+			PersonX p = new PersonX("大西", 38);
+
+			System.out.println(p);
+	}
+
+}
+
+問3.	Employeeクラスにequalsメソッドをオーバーライドして、社員IDが同じ場合に等しいと判定するようにしてください。
+	Employeeクラスのインスタンスを作成し、equalsメソッドを使って比較するプログラムを作成してください。
+	※ equalsメソッドは、社員IDが同じかどうかのみ判定できればOK。（nullチェックやhashCodeの実装は不要）
+
+	package jp.co.aforce.sample;
+
+	class Employee1 {
+		String employee1Id;
+	
+		Employee1(String id){
+			this.employee1Id = id;
+}
+	
+		@Override
+		public boolean equals(Object obj) {
+			if(obj instanceof Employee1) {
+			
+				Employee1 other = (Employee1) obj;
+			
+				return this.employee1Id.equals(other.employee1Id);
+		}
+		
+			return false;
+	}
+}
+
+	public class Employee2 {
+		public static void main(String[] args) {
+			Employee1 a = new Employee1("A3592514");
+			Employee1 b = new Employee1("A3592514");
+		
+			System.out.println("同じ人ですよね？:" + a.equals(b));
+	}
+
+}
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────
+第10章：クラスの応用	
+オーバーロード	
+問1.	2つの整数の和を計算するメソッドと、3つの整数の和を計算するメソッドを作成し、
+	それぞれを呼び出して結果を表示するプログラムを作成してください。
+	
+	package jp.co.aforce.sample;
+
+	class CalcuLator{
+		//2つの整数の和
+		int add(int a,int b) {
+			return a+ b;
+	}
+	
+		//3つの整数の和
+		int add (int a,int b,int c) {
+			return a+b+c;
+		}
+	}
+	public class OverLoad1 {
+		public static void main(String[] args) {
+			CalcuLator cal = new CalcuLator();
+			System.out.println("2つの和：" + cal.add(467, 477));
+			System.out.println("3つの和：" + cal.add(36, 28, 39));
+	}
+
+}
+
+問2.	Rectangleクラスを作成し、幅と高さを引数に取るコンストラクターと、幅のみを引数に取るコンストラクターを定義してください。
+	幅のみを引数に取るコンストラクターでは、正方形として高さも同じ値に設定してください。
+	
+	package jp.co.aforce.sample;
+
+	class Rectangle {
+		int width;
+		int height;
+
+		//幅と高さをとるコン
+		Rectangle(int width, int height) {
+			this.width = width;
+			this.height = height;
+		}
+
+		//幅のみ(正方形)
+		Rectangle(int side){
+		this(side,side);
+		}
+
+		void show() {
+			System.out.println("幅：" + width + "/高さ：" + height);
+		}
+	}
+
+	public class OverLoad2{
+		public static void main(String[] args) {
+			System.out.println("---r1を作成---");
+			Rectangle r1 = new Rectangle(10,20);
+			r1.show();
+		
+			System.out.println("---r2を作成---");
+			Rectangle r2 = new Rectangle(15);
+			r2.show();
+		}
+	}
+
+問3.	任意の数の整数の和を計算するメソッドを作成し、複数の引数を渡して結果を表示するプログラムを作成してください。
+	※ 任意の数の整数は、可変長引数（int...）を使用してください
+	
+	package jp.co.aforce.sample;
+
+	class FreeCalMachine {
+		int sumAll(int...numbers) {
+			int total = 0;
+			//numbersは配列扱い
+			for(int n : numbers) {
+				total += n;
+			}
+			return total;
+		}
+	}
+
+	public class FreeCalculator{
+		public static void main(String[] args) {
+		FreeCalMachine fcm = new FreeCalMachine();
+	
+		System.out.println(fcm.sumAll(1,36,28,39));
+		System.out.println(fcm.sumAll(56,31,33,22));
+		System.out.println(fcm.sumAll());
+		}
+	}
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────
+第10章：クラスの応用	
+無名内部クラス	
+問1.	Runnableインターフェースを実装する無名内部クラスを使ってスレッドを作成し、
+	Hello, World!を表示するプログラムを作成してください。
+	
+	package jp.co.aforce.sample;
+
+	public class Anonymous1 {
+		public static void main(String[] args) {
+		
+			Thread thread = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					System.out.println("Hello,World!");
+				}
+			});
+		
+			thread.start();
+		}
+
+	}
+
+以下、問2,3は参考・発展課題です。時間があれば調べながらチャレンジしてみてください。	
+問2.	ActionListenerインターフェースを実装する無名内部クラスを使って、ボタンのクリックイベントを処理するプログラムを作成してください。
+	
+	package jp.co.aforce.sample;
+
+	import java.awt.event.ActionEvent;	
+	import java.awt.event.ActionListener;
+	import javax.swing.JButton;
+	import javax.swing.JFrame;
+
+	public class ButtonTest {
+		public static void main(String[] args) {
+			JFrame frame = new JFrame("テスト");
+			JButton button = new JButton("クリックしてね");
+		
+			//ActionListenerをその場で実装して追加
+			button.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("ボタンが押されました");
+				}
+			});
+		
+			frame.add(button);
+			frame.setSize(200, 100);
+			frame.setVisible(true);
+		}
+	}
+
+問3.	javax.swing.Timerクラスを使って、1秒ごとに"Tick"と表示するプログラムを無名内部クラスを使って作成してください。
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────
+第10章：クラスの応用	
+キャスト	
+問1.	double型の変数をint型にキャストして表示するプログラムを作成してください。
+	
+	package jp.co.aforce.sample;
+
+	public class CastTest {
+ 	public static void main(String[] args) {
+		 double d = 123.456;
+	 
+	 	int i = (int)d;
+	 
+	 	System.out.println("元の値：" + d); ///123.446
+	 	System.out.println("キャスト後" + i); ///123
+ 	}
+}
+
+
+問2.	Animalクラスを基底クラスとし、Dogクラスを派生クラスとして作成してください。
+	Animal型の変数をDog型にキャストして、Dogクラスのメソッドを呼び出すプログラムを作成してください。
+	
+	package jp.co.aforce.sample;
+
+	class Zanimal{
+		void eat() { System.out.println("食事！");}
+	}
+
+	class Dog7 extends Zanimal{
+		void bark() {System.out.println("ワン！");}
+	}
+
+	public class DownCast {
+		public static void main(String[] args) {
+		
+			Zanimal zanimal = new Dog7();
+			
+			Dog7 dog = (Dog7) zanimal;
+			dog.bark();
+		}
+	}
+
+問3.	Shapeインターフェースを定義し、CircleクラスとRectangleクラスで実装してください。
+	Shape型の変数をそれぞれの具体的なクラスにキャストして、特定のメソッドを呼び出すプログラムを作成してください。
+	※ instanceofを使用して安全にキャストしてください。
+	
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────
+第10章：クラスの応用	
+静的フィールド	
+問1.	Counterクラスを作成し、静的フィールドcountを定義してください。
+	countをインクリメントするメソッドを作成し、複数のインスタンスを生成してcountの値を表示するプログラムを作成してください。
+	
+問2.	Studentクラスを作成し、静的フィールドschoolNameを定義してください。
+	複数のインスタンスを生成し、schoolNameの値を表示するプログラムを作成してください。
+	
+問3.	Configurationクラスを作成し、静的フィールドappNameとversionを定義してください。
+	静的初期化ブロックを使ってこれらのフィールドを初期化し、値を表示するプログラムを作成してください。
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────
+第10章：クラスの応用	
+静的メソッド	
+問1.	MathUtilsクラスを作成し、2つの整数の和を計算する静的メソッドaddを定義してください。
+	メインメソッドでこの静的メソッドを呼び出して結果を表示するプログラムを作成してください。
+	
+問2.	StringUtilsクラスを作成し、文字列を大文字に変換する静的メソッドtoUpperCaseを定義してください。
+	メインメソッドでこの静的メソッドを呼び出して結果を表示するプログラムを作成してください。
+	
+問3.	ArrayUtilsクラスを作成し、整数の配列の最大値を返す静的メソッドmaxを定義してください。
+	メインメソッドでこの静的メソッドを呼び出して結果を表示するプログラムを作成してください。
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────
+第10章：クラスの応用	
+定数	
+問1.	MathConstantsクラスを作成し、円周率PIを定数として定義してください。
+	メインメソッドでこの定数を使用して円の面積を計算して表示するプログラムを作成してください。
+	
+問2.	PhysicsConstantsクラスを作成し、光速SPEED_OF_LIGHTを定数として定義してください。
+	メインメソッドでこの定数を使用して光が1秒間に進む距離を計算して表示するプログラムを作成してください。
+	
+問3.	AppConfigクラスを作成し、アプリケーション名APP_NAMEとバージョンVERSIONを定数として定義してください。
+	メインメソッドでこれらの定数を使用してアプリケーションの情報を表示するプログラムを作成してください。
+	
+─────────────────────────────────────────────────────────────────────────────────────────────────────
+第10章：クラスの応用	
+列挙型	
+問1.	Day列挙型を定義し、曜日（月曜日から日曜日）を列挙してください。
+	メインメソッドで列挙型の値を表示するプログラムを作成してください。
+	
+問2.	Season列挙型を定義し、四季（春、夏、秋、冬）を列挙してください。
+	メインメソッドで列挙型の値を使用して季節を表示するプログラムを作成してください。
+	
+問3.	TrafficLight列挙型を定義し、信号の色（赤、黄、緑）を列挙してください。
+	それぞれの色に対応するメッセージを返すメソッドを定義し、
+	メインメソッドでそのメソッドを呼び出してメッセージを表示するプログラムを作成してください。
+
