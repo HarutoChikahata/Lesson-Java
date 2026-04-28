@@ -1,0 +1,256 @@
+第9章：クラスの基礎	
+クラス	
+問1.	クラス「Person」を作成し、名前（name）と年齢（age）のフィールドを持たせてください。
+	コンストラクタを使って名前と年齢を初期化できるようにしてください。
+	作成したクラスのインスタンスを生成し、フィールド値を表示してください。
+	
+	class Person{
+		String name;
+		int age;
+	
+		Person(String name, int age){
+			this.name = name;
+			this.age = age;
+	}
+}
+	package jp.co.aforce.sample;
+
+	public class Main {
+		public static void main(String[] args) {
+			Person p = new Person("田中太郎",25);
+			System.out.println("名前：" + p.name + ",年齢" + p.age);
+	}
+}
+	
+問2.	クラス「Book」を作成し、タイトル（title）、著者（author）、価格（price）をフィールドに持たせてください。
+	showInfo()メソッドで本の情報を表示できるようにしてください。
+	
+	class Book{
+		String title;
+		String author;
+		int price;
+		//1.フィールド（データ）の作成
+	la
+		void showInfo() {
+		//2.メソッドの挿入
+			System.out.println("Title:" + title);
+			System.out.println("Author:" + author);
+			System.out.println("Price:" + price + "円");
+	}
+}	
+問3.	クラス「Student」を作成し、名前と成績（配列）を持たせてください。
+	成績の平均を計算して表示するメソッドを作成してください。
+	
+	class Student{
+		String name;
+		int[] scores;
+	
+		void showAverage() {
+			double sum = 0;
+			for(int score : scores) {
+				sum += score;
+			}
+			double average = sum / scores.length;
+			System.out.println(name + "さんの平均点：" + average);
+	}
+}
+問4.	クラス「Employee」を作成し、ID、名前、給与をフィールドとして持たせてください。
+	給与を昇給させるraiseSalary(double percent)メソッドを実装し、昇給後の給与を表示してください。
+	//1．クラスの作成
+	class Employee{
+		int id;
+		String name;
+		double salary;
+		//2．データをセット
+		Employee(int id, String name, double salary){
+			this.id = id;
+			this.name = name;
+			this.salary = salary;
+	}
+		//3.給与を昇給させるメソッド
+		void raiseSalary(double percent) {
+			//Ex:5%Upならsalary = salary * 1.05
+			this.salary = this.salary * (1 + percent / 100);
+			System.out.println(name + "さんの給与が" + percent + "%アップしました");
+			System.out.println(name+ "さんの昇給後の給与は" + this.salary + "円");
+	}
+}
+
+	package jp.co.aforce.sample;
+
+	public class Main {
+		public static void main(String[] args) {
+			//1.インスタンスを作成
+			Employee emp = new Employee(3592514,"近畑",250000);
+		
+			System.out.println("───昇給前───");
+			System.out.println("社員名：" + emp.name);
+			System.out.println("現在の給与：" + emp.salary + "円");
+		
+			System.out.println("\n───昇給実行───");
+			//2.昇給メソッドを呼び出す
+			emp.raiseSalary(25.0);
+		
+			System.out.println("\n───最終確認───");
+			System.out.println("現在の給与:" + emp.salary + "円");
+	}
+}
+
+問5.	クラス「Circle」を作成し、半径（radius）をフィールドとして持たせてください。
+	コンストラクタで半径を初期化し、面積（π × r²）を計算して表示するメソッドを実装してください。
+	
+	class Circle {
+		double radius;
+	
+		//1.コンストラクタ：半径をセットする
+		Circle(double radius){
+			this.radius = radius;
+	}
+		//2.面積を計算して表示するメソッド
+		void showArea() {
+			//公式：面積=π × 半径の2乗
+			double area = Math.PI * radius * radius;
+			System.out.println("半径" + radius + "の円の面積：" + area);
+	}
+}
+	package jp.co.aforce.sample;
+
+	public class Main {
+		public static void main(String[] args) {
+			
+			Circle c1 = new Circle(5.0);
+			c1.showArea();
+	}
+}
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+第9章：クラスの基礎	
+インスタンス	
+問1.	クラス「Dog」を作成し、名前（name）フィールドを持たせてください。
+	インスタンスを生成して名前を設定し、名前を表示してください。
+	package jp.co.aforce.sample;
+
+	class Dog1 {
+    	String name;
+}
+
+	public class Main {
+    	public static void main(String[] args) {
+        	Dog1 myDog = new Dog1();
+        	myDog.name = "ポチ";
+        	System.out.println("犬の名前は" + myDog.name + "です。");
+    }
+}
+	
+問2.	次のコードを完成させて、猫（Cat）クラスのインスタンスを作成し、鳴く（meow）メソッドを呼び出してください。
+
+	public class Cat {
+	    String name;
+	
+	    void meow() {
+	        System.out.println(name + "が鳴いた！");
+	    }
+	
+	    public static void main(String[] args) {
+       		Cat1 myCat = new Cat1();
+       		//インスタンス化
+       		myCat.name = "ムーン";
+      	 	//名前を設定
+       		myCat.meow();
+       		//メソッド呼び出し
+    }
+}
+問3.	複数の「Car」インスタンスを生成し、それぞれの車種（model）と速度（speed）を表示してください。
+	
+	package jp.co.aforce.sample;
+
+	class Car{
+		String model;
+		int speed;
+	}
+
+	public class CarMaster {
+		public static void main(String[] args) {
+			Car toyotaCar = new Car();
+			toyotaCar.model = "プリウス";
+			toyotaCar.speed = 200;
+		
+			Car suzukiCar = new Car();
+			suzukiCar.model = "スイフト";
+			suzukiCar.speed = 150;
+		
+			System.out.println("車種：" + toyotaCar.model + "/最高時速：" + toyotaCar.speed + "km/h");
+			System.out.println("車種:" + suzukiCar.model + "/最高時速：" + suzukiCar.speed + "km/h");
+	
+		}
+	}
+
+問4.	「Rectangle」クラスを作成し、幅と高さを持たせ、インスタンス化時に指定できるようにしてください。
+	面積を計算するメソッドを持たせ、表示してください。
+	
+	
+問5.	「Robot」クラスを作成し、動作（move）メソッドを持たせてください。
+	複数のインスタンスを作り、それぞれ異なる動作を表示させましょう。
+	
+	
+問6.	「Student」クラスを作成し、名前とテスト点数（複数科目）を持たせてください。
+	インスタンスごとに異なる点数を持たせ、合計点と平均点を表示しましょう。
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+第9章：クラスの基礎	
+mainメソッド	
+問1.	mainメソッドで「Hello, World!」を表示してください。
+	
+	
+問2.	mainメソッドで2つの整数を足し算し、結果を表示してください。
+	
+	
+問3.	mainメソッドでコマンドライン引数を受け取り、その値をコンソールに表示してください。
+	
+	
+問4.	mainメソッド内で、複数のクラスをインスタンス化し、それぞれのメソッドを呼び出してください。
+	
+	
+問5.	mainメソッド内で、自分の名前と年齢を変数に代入し、自己紹介文を表示してください。
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+第9章：クラスの基礎											
+命名規則											
+問1.	次の変数名・メソッド名・クラス名を、正しい命名規則（camelCase / PascalCase / UPPER_SNAKE_CASE）に直してください。										
+	① student_name（変数名）　② Calc_score（メソッド名）　③ my class（クラス名）　④ max_count（定数名）										
+											
+											
+問2.	以下の名前はどの命名規則に当たるか答えてください。										
+	① getUserName　② MAX_RETRY_COUNT　③ StudentRecord　④ total_price										
+											
+											
+問3.	次の説明に合う名前を、適切な命名規則を使って自分で考えてください。										
+	① 「ユーザーのメールアドレス」を表す変数名										
+	② 「メールを送信する」処理を表すメソッド名										
+	③ 「銀行口座」を表すクラス名										
+	④ 「消費税率（変更不可）」を表す定数名										
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+第9章：クラスの基礎												
+引数と戻り値												
+問1.	引数として名前（String型）を受け取り、「こんにちは、〇〇さん！」と表示するメソッド greet() を作成してください。											
+	mainメソッドから greet() を呼び出して動作を確認してください。											
+												
+												
+問2.	2つの整数を引数として受け取り、その合計を戻り値として返すメソッド add() を作成してください。											
+	mainメソッドで add() を呼び出し、結果を変数に受け取って表示してください。											
+												
+												
+問3.	整数を引数として受け取り、その数が偶数なら true、奇数なら false を返すメソッド isEven() を作成してください。											
+	mainメソッドからいくつかの数値で呼び出して結果を確認してください。											
+												
+												
+問4.	以下の incomplete なメソッドを完成させてください。											
+	public static String repeat(String word, int times) {											
+	    // wordをtimes回繰り返した文字列を返す											
+	}											
+	mainメソッドから repeat("Java", 3) のように呼び出し、「JavaJavaJava」と表示されることを確認してください。											
+												
+												
+問5.	半径（double型）を引数として受け取り、円の面積（π × r²）を計算して返すメソッド calcArea() を作成してください。											
+	Math.PI を使って計算し、mainメソッドから呼び出して結果を表示してください。											
+												
+												
