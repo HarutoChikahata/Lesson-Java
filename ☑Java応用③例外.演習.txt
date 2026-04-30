@@ -1,0 +1,146 @@
+第14章：例外	
+問1.	ユーザーから整数を入力させ、その値を2で割るプログラムを作成してください。
+	入力が整数でない場合に NumberFormatException をキャッチしてエラーメッセージを表示してください。
+	
+	package jp.co.aforce.sample;
+
+	import java.util.Scanner;
+
+	public class ExceptionPractice1 {
+		public static void main(String[] args) {
+		
+			//try内で宣言すれば、Scannerを勝手に閉じてくれる
+			try (Scanner scanner = new Scanner(System.in)) {
+				System.out.println("整数を入力してください");
+				String input = scanner.nextLine();
+				//parseIntでStringをintに変換
+				int num = Integer.parseInt(input);
+				System.out.println("結果:" + (num / 2));
+			} catch (NumberFormatException e) {
+				System.out.println("エラー：整数を入力してください");
+			}
+		}
+	}
+
+問2.	次のコードを実行すると何が出力されますか？
+	public class ExceptionTest {
+	    public static void main(String[] args) {
+	        try {
+	            int result = 10 / 0;
+	            System.out.println("計算結果: " + result);
+	        } catch (ArithmeticException e) {
+	            System.out.println("例外が発生しました: " + e.getMessage());
+	        }
+	        System.out.println("プログラム終了");
+	    }
+	}
+	
+	→例外が発生しました：
+【ArithmeticException＝ゼロ除算,型範囲を超える計算時に発生する例外。】
+
+問3.	次のコードでは、どの catch ブロックが実行されますか？
+	
+	public class MultipleCatchTest {
+	    public static void main(String[] args) {
+	        try {
+	            String str = null;
+	            System.out.println(str.length());
+	        } catch (ArithmeticException e) {
+	            System.out.println("ArithmeticException が発生しました");
+	        } catch (NullPointerException e) {
+	            System.out.println("NullPointerException が発生しました");
+	        } catch (Exception e) {
+	            System.out.println("Exception が発生しました");
+	        }
+	    }
+	}
+	
+	選択肢:
+	A. ArithmeticException が発生しました
+	B. NullPointerException が発生しました
+	C. Exception が発生しました
+	D. 例外は発生せず catch は実行されない
+	→B
+【複数キャッチした場合はより具体的な方を優先】
+	
+問4.	次のコードの出力を予測してください。
+	
+	public class FinallyTest {
+	    public static void main(String[] args) {
+	        try {
+	            System.out.println("try ブロック開始");
+	            throw new RuntimeException("エラー発生");
+	        } catch (Exception e) {
+	            System.out.println("catch ブロック: " + e.getMessage());
+	        } finally {
+	            System.out.println("finally ブロック");
+	        }
+	        System.out.println("プログラム終了");
+	    }
+	}
+	選択肢:
+	A. try ブロック開始 の後に catch が実行され、finally は実行されない
+	B. try → catch → finally → プログラム終了 の順に実行される
+	C. try → finally の後に例外がスローされ、プログラムが強制終了する
+	D. try → finally の順に実行されるが、catch は実行されない
+	→B
+【finallyは必ず実行される】
+問5.	例外が発生してもプログラムが止まらないようにする処理を記述する問題。
+	整数10を整数0で割ったときに発生する例外をtry-catchで処理し、
+	「0で割ることはできません」と表示してください。
+	
+	package jp.co.aforce.sample;
+
+	public class ExceptionPractice2 {
+		public static void main(String[] args) {
+			try {
+				int result = 10/0;
+			}catch (ArithmeticException e) {
+				System.out.println("0で割ることはできません");
+			}
+		}
+	}
+
+問6.	配列の要素を取り出すときの例外処理を記述する問題。
+	配列 {1, 2, 3} の4番目の要素（インデックス3）にアクセスしようとしたとき、
+	例外をキャッチして「配列の範囲外です」と表示するようにしてください。
+	
+package jp.co.aforce.sample;
+
+public class ExceptonPractice3 {
+	public static void main(String[] args) {
+		int[] array = { 1, 2, 3 };
+		try {
+			int value = array[3];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("配列の範囲外です");
+		}
+	}
+
+}
+
+問7.	数値変換と0除算の両方を例外処理する問題。
+	入力された文字列を数値に変換し、その数値で10を割って結果を表示してください。
+	数値でない文字列が入力された場合や、0が入力された場合の例外も適切に処理してください。
+	
+package jp.co.aforce.sample;
+
+import java.util.Scanner;
+
+public class ExceptionPractice4 {
+	public static void main(String[] args) {
+		//Scannerはtryの中に入れるのが最先端
+		try(Scanner scanner = new Scanner(System.in)){
+			System.out.println("数値を入力してください");
+			String input = scanner.nextLine();
+			int num = Integer.parseInt(input);
+			int result = 10 /num;
+			System.out.println("10/" + num + "=" + result);
+		}catch(NumberFormatException e) {
+			System.out.println("エラー：　数値以外は入力できません");			
+		}catch (ArithmeticException e ) {
+			System.out.println("エラー:0で割ることはできません");
+		}
+	}
+}
+

@@ -1,0 +1,51 @@
+第17章：リフレクションとアノテーション	
+問1	Sampleクラスを作成し、リフレクションを使って Sample クラスのメソッド名をすべて表示するプログラムを作成してください。
+	
+package jp.co.aforce.sample;
+
+import java.lang.reflect.Method;
+
+public class Allsample {
+	public static void main(String[] args) {
+		Class<Sample> clazz = Sample.class;
+		Method[] methods = clazz.getDeclaredMethods();
+		for(Method method : methods) {
+			System.out.println("メソッド名" + method.getName());
+		}
+	}
+}
+
+class sample{
+	public void testMethod1() {}
+	public void testMethod2() {}
+}
+
+問2	カスタムアノテーション @MyAnnotation を作成し、クラス MyClass に適用してください。
+	アノテーションの情報をリフレクションを使って取得し、表示してください。
+	
+	
+問3	Calculatorクラスを作成し、add(int a, int b) メソッドに対して JavaDoc コメントを追加してください。
+	JavaDoc コメントにはメソッドの説明、パラメータの説明、戻り値の説明を含めてください。
+	
+問4	String型のインスタンスを1つ作り、そのインスタンスからクラス名（完全修飾名）を表示するプログラムを作成してください。
+	
+問5	以下のコードで使われている @Override の意味を説明してください。
+	
+	class Animal {
+	    void speak() {
+	        System.out.println("鳴く");
+	    }
+	}
+	
+	class Dog extends Animal {
+	    @Override
+	    void speak() {
+	        System.out.println("ワン！");
+	    }
+	}
+	
+問6	以下のメソッドに JavaDoc コメントを追加してください。
+	
+	public int add(int a, int b) {
+	    return a + b;
+	}

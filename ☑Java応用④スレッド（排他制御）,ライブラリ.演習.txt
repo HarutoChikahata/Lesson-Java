@@ -1,0 +1,178 @@
+第15章：スレッド（排他制御）	
+問1.	Runnable インターフェイスを実装した MyRunnable クラスを作成し、
+	run() メソッドで「Hello from a thread!」と表示するプログラムを作成してください。
+	MyRunnable を使ってスレッドを開始してください。
+	
+package jp.co.aforce.sample;
+
+public class MyRunnable implements Runnable{
+	@Override
+	public void run() {
+		System.out.println("Hello from a thread!");
+	}
+	public static void main(String[] args) {
+		Thread thread = new Thread(new MyRunnable());
+		thread.start();
+	}
+}
+
+問2.	Counterクラスを作成し、increment() メソッドを持たせてください。
+	increment() メソッドをスレッドセーフにするために synchronized キーワードを使ってください。
+
+package jp.co.aforce.sample;
+
+public class Counter {
+	private int count = 0;
+	public synchronized void increment() {
+		count++;
+	}
+
+}
+
+問3.	次のうち、Javaで排他制御を実現するための方法として正しいものはどれですか？
+	A. synchronizedキーワードを使用する
+	B. volatileキーワードを使用する
+	C. finalキーワードを使用する
+	D. staticキーワードを使用する
+	→A
+問4.	次のコードスニペットの出力として正しいものはどれですか？
+	public class Counter {
+	    private int count = 0;
+	
+	    public synchronized void increment() {
+	        count++;
+	    }
+	
+	    public int getCount() {
+	        return count;
+	    }
+	
+	    public static void main(String[] args) {
+	        Counter counter = new Counter();
+	        Thread t1 = new Thread(() -> {
+	            for (int i = 0; i < 1000; i++) {
+	                counter.increment();
+	            }
+	        });
+	
+	        Thread t2 = new Thread(() -> {
+	            for (int i = 0; i < 1000; i++) {
+	                counter.increment();
+	            }
+	        });
+	
+	        t1.start();
+	        t2.start();
+	
+	        try {
+	            t1.join();
+	            t2.join();
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+	
+	        System.out.println.getCount());
+	    }
+	}
+	
+	A. 0
+	B. 1000
+	C. 2000
+	D. 不定
+	→C
+問5.	次のうち、JavaのReentrantLockクラスに関する説明として正しいものはどれですか？
+	A. ReentrantLockは、再入可能なロックを提供する
+	B. ReentrantLockは、スレッド間の通信を行うために使用される
+	C. ReentrantLockは、スレッドの優先順位を設定するために使用される
+	D. ReentrantLockは、スレッドの実行を一時停止するために使用される
+	→A 
+問6.	次のうち、Javaでスレッドを作成する方法として正しいものはどれですか？
+	A. Threadクラスを継承する
+	B. Runnableインターフェースを実装する
+	C. Callableインターフェースを実装する
+	D. 以上すべて
+	→D
+問7.	次のコードスニペットの出力として正しいものはどれですか？
+	public class MyThread extends Thread {
+	    public void run() {
+	        System.out.println("Hello from MyThread");
+	    }
+	
+	    public static void main(String[] args) {
+	        MyThread t = new MyThread();
+	        t.start();
+	        System.out.println("Hello from main");
+	    }
+	}
+	
+	A. Hello from MyThread
+	B. Hello from main
+	C. Hello from MyThread\nHello from main
+	D. Hello from main\nHello from MyThread
+	→C,D
+問8.	次のうち、スレッドの状態に関する説明として正しいものはどれですか？
+	A. NEW状態は、スレッドがまだ開始されていない状態を示す
+	B. RUNNABLE状態は、スレッドが実行可能な状態を示す
+	C. BLOCKED状態は、スレッドがモニターのロックを待っている状態を示す
+	D. 以上すべて
+	→D
+───────────────────────────────────────────────────────────────────────────────
+第16章：ライブラリ	
+問1.	java.time.LocalDate クラスを使って、現在の日付を取得し、1週間後の日付を表示するプログラムを作成してください。
+
+package jp.co.aforce.sample;
+
+import java.time.LocalDate;
+
+public class Library1 {
+	public static void main(String[] args) {
+		LocalDate today = LocalDate.now();
+		System.out.println("1週間後：" + today.plusWeeks(1));
+	}
+}
+
+問2.	Math クラスを使った計算問題
+	Mathクラスを使って、-10の絶対値を表示するプログラムを作成してください。
+
+package jp.co.aforce.sample;
+
+public class Library2 {
+	public static void main(String[] args) {
+		int value = -10;
+		int result = Math.abs(value);
+		
+		System.out.println(value + "の絶対値は" + result + "です。");
+	}
+}
+	
+問3.	Arrays クラスを使って配列を並び替える問題
+	配列 {5, 3, 8, 1} を昇順に並び替えて表示してください。
+
+package jp.co.aforce.sample;
+
+import java.util.Arrays;
+
+public class Library3 {
+	public static void main(String[] args) {
+		int[] ara = {29,38,38,23};
+		Arrays.sort(ara);
+		System.out.println(Arrays.toString(ara));
+	}
+}
+
+問4.	LocalDateTime を使って現在日時を表示する問題
+	現在の日時を取得し、「2025年4月11日 15時30分」のような形式で出力してください。
+
+package jp.co.aforce.sample;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Library4 {
+	public static void main(String[] args) {
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy年M月d日 h時mm分");
+		System.out.println(now.format(fmt));
+	}
+}
+
